@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace prac8
+namespace Practical8
 {
     public class RouteConfig
     {
@@ -16,7 +16,7 @@ namespace prac8
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Inventory", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Product", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

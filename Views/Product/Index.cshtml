@@ -1,0 +1,43 @@
+@model IEnumerable<Practical8.Models.Product>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Management</title>
+</head>
+<body>
+    <h2>Inventory Management</h2>
+    <p>
+        @Html.ActionLink("Add New Product", "Create")
+    </p>
+    <table border="1">
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@String.Format("{0:0.00}", item.Price)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                    @using (Html.BeginForm("Delete", "Product", new { id = item.ProductId }, FormMethod.Post, new { style = "display:inline;" }))
+                    {
+                        <input type="submit" value="Delete" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
