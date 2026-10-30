@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Inventory Management System (ADO.NET)</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            background-color: #f4f6f9;
+            color: #333333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-navbar {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #ffffff !important;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+        .header-banner {
+            background: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 14px 0;
+            margin-bottom: 20px;
+        }
+        .header-title {
+            margin: 0;
+            color: #1e293b;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .header-subtitle {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .badge-dept {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            background: #ffffff;
+            margin-bottom: 24px;
+        }
+        .content-area {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 16px 0;
+            color: #64748b;
+            font-size: 0.88rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark main-navbar py-2">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Inventory")">
+                <span style="color: #60a5fa;">&#9632;</span> Inventory Module (ADO.NET)
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Inventory")">Inventory List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Create", "Inventory")">Add New Product</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center text-light">
+                    <span class="badge bg-light text-dark me-2">Akshar Parekh (92400120523)</span>
+                    <span class="badge bg-primary">Batch B</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header-banner">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="header-title">Marwadi University</h1>
+                <p class="header-subtitle">Department of Computer Science & Engineering | 01CE1523 - .NET Technologies</p>
+            </div>
+            <div>
+                <span class="badge-dept">Practical 8: ADO.NET CRUD Operations</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container content-area">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success:</strong> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error:</strong> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Inventory Management Module</strong> &mdash; Built with ADO.NET &amp; ASP.NET MVC
+            </div>
+            <div>
+                Student: <b>Akshar Parekh</b> (92400120523) | Batch B &bull; Faculty of Engineering &amp; Technology
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,79 @@
+@model prac8.Models.InventoryItem
+
+@{
+    ViewBag.Title = "Product Details - #" + Model.ItemId;
+    decimal subtotal = Model.Quantity * Model.UnitPrice;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-custom p-4">
+            <div class="border-bottom pb-3 mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="badge bg-primary mb-1">Item #@Model.ItemId</span>
+                    <h3 class="fw-bold mb-0">@Model.ItemName</h3>
+                </div>
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-sm">&larr; Back to List</a>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3">
+                        <small class="text-muted text-uppercase fw-semibold">Category</small>
+                        <div class="fs-5 fw-bold text-dark mt-1">@Model.Category</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3">
+                        <small class="text-muted text-uppercase fw-semibold">Stock Status</small>
+                        <div class="mt-1">
+                            @if (Model.Quantity == 0)
+                            {
+                                <span class="badge bg-danger fs-6">Out of Stock (0 units)</span>
+                            }
+                            else if (Model.Quantity < 10)
+                            {
+                                <span class="badge bg-warning text-dark fs-6">Low Stock (@Model.Quantity units)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success fs-6">In Stock (@Model.Quantity units)</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3">
+                        <small class="text-muted text-uppercase fw-semibold">Unit Price</small>
+                        <div class="fs-4 fw-bold text-dark mt-1">₹@String.Format("{0:N2}", Model.UnitPrice)</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3">
+                        <small class="text-muted text-uppercase fw-semibold">Total Stock Value</small>
+                        <div class="fs-4 fw-bold text-primary mt-1">₹@String.Format("{0:N2}", subtotal)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="fw-bold text-uppercase small text-muted">Description / Specifications</h6>
+                <div class="p-3 bg-white border rounded">
+                    @(string.IsNullOrEmpty(Model.Description) ? "No description provided." : Model.Description)
+                </div>
+            </div>
+
+            <div class="mb-4 text-muted small">
+                <strong>Record Created:</strong> @Model.CreatedDate.ToString("dddd, MMMM dd, yyyy HH:mm:ss")
+            </div>
+
+            <div class="d-flex justify-content-between border-top pt-3">
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Back to Inventory</a>
+                <div class="gap-2 d-flex">
+                    <a href="@Url.Action("Edit", new { id = Model.ItemId })" class="btn btn-primary px-4">Edit Item</a>
+                    <a href="@Url.Action("Delete", new { id = Model.ItemId })" class="btn btn-outline-danger px-4">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

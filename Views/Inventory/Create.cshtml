@@ -1,0 +1,78 @@
+@model prac8.Models.InventoryItem
+
+@{
+    ViewBag.Title = "Add New Inventory Product";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-custom p-4">
+            <div class="border-bottom pb-3 mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="fw-bold mb-1">Create Inventory Record</h3>
+                    <p class="text-muted small mb-0">Insert item details into SQL database using ADO.NET SqlCommand</p>
+                </div>
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-sm">&larr; Back to Inventory List</a>
+            </div>
+
+            @using (Html.BeginForm("Create", "Inventory", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ItemName, new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control", placeholder = "e.g. Cisco Gigabit Switch 24-Port" })
+                    @Html.ValidationMessageFor(m => m.ItemName, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Category, new { @class = "form-label fw-semibold" })
+                        @Html.DropDownListFor(m => m.Category, new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "-- Select Category --", Value = "" },
+                            new SelectListItem { Text = "Electronics", Value = "Electronics" },
+                            new SelectListItem { Text = "Accessories", Value = "Accessories" },
+                            new SelectListItem { Text = "Office Equipment", Value = "Office Equipment" },
+                            new SelectListItem { Text = "Stationery", Value = "Stationery" },
+                            new SelectListItem { Text = "Furniture", Value = "Furniture" },
+                            new SelectListItem { Text = "Networking", Value = "Networking" }
+                        }, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger small" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Quantity, new { @class = "form-label fw-semibold" })
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", type = "number", min = "0", placeholder = "0" })
+                        @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger small" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.UnitPrice, new { @class = "form-label fw-semibold" })
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            @Html.TextBoxFor(m => m.UnitPrice, new { @class = "form-control", type = "number", step = "0.01", min = "0.01", placeholder = "0.00" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UnitPrice, "", new { @class = "text-danger small" })
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.Description, new { @class = "form-label fw-semibold" })
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3, placeholder = "Enter optional product technical specifications or notes..." })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger small" })
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 border-top pt-3">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4">Cancel</a>
+                    <button type="submit" class="btn btn-success px-4">
+                        Save Item (ADO.NET Insert)
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
